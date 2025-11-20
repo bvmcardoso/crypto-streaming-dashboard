@@ -1,0 +1,13 @@
+.mini-chart {
+  width: 100%;
+  margin-bottom: 12px;
+
+  &--empty {
+    font-size: 11px;
+    color: #6b7280;
+  }
+
+  &__line {
+    stroke: #38bdf8;
+  }
+}

@@ -1,0 +1,84 @@
+[project]
+name = "crypto-streaming-dashboard"
+version = "0.1.0"
+description = "Real-time crypto dashboard with FastAPI backend and React + TypeScript frontend (ETH/USDC, ETH/USDT, ETH/BTC)."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "Bruno Cardoso" }]
+keywords = [
+    "fastapi",
+    "clean architecture",
+    "dependency injection",
+    "python",
+    "testing",
+]
+dependencies = [
+    "fastapi>=0.115.0",
+    "uvicorn>=0.30.0",
+    "sqlalchemy>=2.0",
+    "asyncpg>=0.29",
+    "alembic>=1.13",
+    "websockets>=15.0.1",
+    "python-dotenv>=1.2.1",
+    "aiosqlite>=0.21.0",
+    "pytest-asyncio>=1.3.0",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.0",
+    "ruff>=0.5.0",
+    "mypy>=1.10",
+    "types-requests>=2.31.0.10",
+    "httpx>=0.27.0",
+    "debugpy==1.8.1",
+]
+
+[tool.uv]
+# No mandatory config; `uv sync` will manage the virtualenv automatically.
+
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+lint.select = ["E", "F", "I", "UP", "B", "N"]
+lint.ignore = ["E501"]
+lint.fixable = ["ALL"]
+
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+
+[tool.ruff.lint.per-file-ignores]
+"app/api/**/*.py" = [
+    "B008",   # FastAPI: Depends(...) default param
+    "F401",
+    "ARG001", # unused params (deps/Path params)
+    "N802",
+    "N803",   # names not snake_case accepted by decorators/routes
+]
+
+
+[tool.mypy]
+python_version = "3.12"
+strict_optional = true
+no_implicit_optional = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+check_untyped_defs = true
+disallow_untyped_defs = true
+ignore_missing_imports = true
+
+# Relax for HTTP layer (FastAPI routers)
+[[tool.mypy.overrides]]
+module = ["app.api.*"]
+disallow_untyped_defs = false
+check_untyped_defs = false
+
+# Relax for tests
+[[tool.mypy.overrides]]
+module = ["tests.*"]
+disallow_untyped_defs = false
+check_untyped_defs = false

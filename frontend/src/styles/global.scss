@@ -1,0 +1,9 @@
+@use './variables.scss' as *;
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: $bg-dark;
+  color: $text;
+  font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+}

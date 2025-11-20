@@ -1,0 +1,107 @@
+.dashboard {
+  min-height: 100vh;
+  padding: 16px 24px;
+  background-color: #0f172a;
+  color: #e5e7eb;
+  font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+  }
+
+  &__title {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 600;
+  }
+
+  &__subtitle {
+    margin: 4px 0 0;
+    font-size: 13px;
+    color: #9ca3af;
+  }
+
+  &__status {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 12px;
+    background-color: #1f2937;
+    text-transform: capitalize;
+  }
+
+  &__status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    background-color: #fbbf24; // default yellow
+  }
+
+  &__status--connected &__status-dot {
+    background-color: #22c55e;
+  }
+
+  &__status--error &__status-dot,
+  &__status--closed &__status-dot {
+    background-color: #ef4444;
+  }
+
+  &__status-text {
+    color: #e5e7eb;
+  }
+
+  &__error {
+    margin-bottom: 12px;
+    font-size: 13px;
+    color: #f97316;
+  }
+
+  &__content {
+    margin-top: 8px;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 16px;
+  }
+}
+
+.rate-card {
+  background-color: #020617;
+  border-radius: 12px;
+  padding: 16px;
+  border: 1px solid #1f2937;
+
+  &__title {
+    margin: 0 0 12px;
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  &__row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    margin-bottom: 4px;
+  }
+
+  &__label {
+    color: #9ca3af;
+  }
+
+  &__value {
+    font-weight: 500;
+
+    &--muted {
+      color: #9ca3af;
+      font-weight: 400;
+      font-size: 12px;
+    }
+  }
+}
