@@ -13,7 +13,6 @@ Runs fully in Docker — no local Python or Node setup required.
 ---
 
 ## Preview (GIF or Screenshot)
-_Add your GIF or screenshot below this line_
 
 ```
 ![Demo](assets/preview.gif)
