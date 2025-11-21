@@ -14,9 +14,8 @@ Runs fully in Docker — no local Python or Node setup required.
 
 ## Preview (GIF or Screenshot)
 
-```
 ![Demo](assets/preview.gif)
-```
+
 
 ---
 
