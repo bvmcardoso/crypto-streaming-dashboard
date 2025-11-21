@@ -1,106 +1,125 @@
 # Crypto Streaming Dashboard
 
-Real-time Ethereum pair dashboard running fully in Docker. FastAPI backend + React frontend with real-time WebSocket updates.
+FastAPI backend + React/TypeScript frontend streaming Ethereum pairs in real time via WebSockets.  
+Runs fully in Docker — no local Python or Node setup required.
 
-## Environment Setup (Backend)
+---
 
-Before running anything, you must configure your Finnhub API key.
+## Project Summary
+- Real-time ETH pair streaming (REST snapshot + WebSocket updates)
+- Clean architecture: API → Service → Repository → Domain
+- React hook (`useRatesStream`) merges snapshot + stream with minimal re-renders
 
-1. Git clone this repository.
+---
 
-2. Inside the `backend/` folder, copy the example environment file:
+## Preview (GIF or Screenshot)
+_Add your GIF or screenshot below this line_
 
+```
+![Demo](assets/preview.gif)
+```
+
+---
+
+## Environment Setup
+
+1. Clone the repository  
+2. Copy environment example:
 ```bash
 cp backend/.env.example backend/.env
 ```
-
-3. Open `backend/.env` and insert **your own** Finnhub API key:
-
+3. Edit the file:
 ```env
 FINNHUB_API_KEY=your_key_here
 ```
 
-This key is required for the real-time streaming data.
+---
 
 ## Architecture
 
 ### Backend (FastAPI)
-- REST endpoint for initial snapshot  
-- WebSocket endpoint for continuous price updates  
-- In-memory aggregation service (ticks + hourly averages)  
-- Clean structure: API → Service → Repository → Domain
+- REST endpoint: initial snapshot  
+- WebSocket endpoint: continuous updates  
+- In-memory aggregator:
+  - tick ingestion
+  - hourly rollovers
+  - independent per-pair state
 
 ### Frontend (React + TypeScript)
-- `useRatesStream` merges REST + WebSocket sources  
-- Tracks connection lifecycle (open / closed / reconnecting)  
-- UI updates instantly with minimal re-renders  
+- `useRatesStream` = merges REST + WebSocket  
+- Handles connection lifecycle  
+- Keeps UI in sync with minimal updates  
+
+---
+
+## Endpoints
+
+```
+GET   /api/v1/rates/current   → snapshot
+WS    /ws/rates               → live stream
+```
+
+---
 
 ## Data Flow
 
-1. Frontend loads snapshot via `GET /api/v1/rates/current`  
-2. Opens the WebSocket at `/ws/rates`  
-3. Backend streams rate updates  
-4. React merges updates in real time to update the dashboard  
+1. Frontend requests snapshot  
+2. Opens WebSocket  
+3. Backend streams updates  
+4. React merges both sources in real time  
+
+---
 
 ## Running (Docker Only)
 
-No local Python or Node setup required.
-
-### Start full stack
-
+Start:
 ```bash
 make docker-up
 ```
 
-Once it starts:
+Access:
+- Frontend: http://localhost:5173  
+- Backend docs: http://localhost:8000/docs  
 
-- **Frontend**: http://localhost:5173  
-- **Backend API Docs**: http://localhost:8000/docs  
-
-### Stop
-
+Stop:
 ```bash
 make docker-down
 ```
 
-### Restart
-
+Restart:
 ```bash
 make docker-restart
 ```
 
+---
+
 ## Backend Tests
 
-Tests run inside Docker:
-
+Run:
 ```bash
 make backend-tests
 ```
 
-Tests cover:
-
+Covers:
 - Tick ingestion  
-- Hour rollover + average computation  
-- Independent pair state tracking  
+- Hour rollover  
+- Pair-specific state tracking  
 
-## Developer Commands
+---
 
-### Backend shell
+## Development
 
 ```bash
 make backend-shell
-```
-
-### Frontend shell
-
-```bash
 make frontend-shell
 ```
 
-## Tech Choices
+---
 
-- FastAPI for the high-throughput backend  
-- Pydantic for typed validation  
-- WebSockets for real-time updates  
-- React + TypeScript for predictable UI state  
-- Docker for deterministic runtime  
+## Stack
+
+- FastAPI  
+- WebSockets  
+- Pydantic  
+- React + TypeScript  
+- Docker  
