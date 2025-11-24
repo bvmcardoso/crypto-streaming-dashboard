@@ -38,8 +38,3 @@ frontend-logs:
 	docker compose logs -f frontend
 
 
-# =========================================
-# Project Utils
-# =========================================
-clean:
-	docker compose down --volumes --remove-orphans
